@@ -130,7 +130,7 @@ function send_email($content)
 function upload_backup {
 	# Test if $BackupFolder exist, if not create it
 	if (!(Test-Path -Path $BackupFolder)) {
-		send_email("The backup directory doesn't exist")
+		send_email "The backup directory $($BackupFolder) does not exist."
 		return $false
 	}
 	
@@ -208,8 +208,7 @@ function upload_backup {
 		# Start Time 
 		$StartTime = $(get-date)
 		# Argument for WinSCP
-		$WinSCPArgs =  '/loglevel=0 /log="' + $WinSCPLog + '" /command "open -certificate=""' + $SSLCertificate + '"" https://' + $user + ':' + $Unsecure + '@cloud.msf.org/remote.php/webdav/ "  "put ""' + $BackupZipFilePath + '"" ./' + $CloudDirectory + '/ " "exit"'
-		#Log Info
+		$WinSCPArgs =  '/loglevel=0 /log="' + $WinSCPLog + '" /command "open https://' + $user + ':' + $Unsecure + '@cloud.msf.org/remote.php/webdav/ "  "put ""' + $BackupZipFilePath + '"" ./' + $CloudDirectory + '/ " "exit"'
 		  
 		Start-Process -Wait  -FilePath $WinSCPProg -ArgumentList $WinSCPArgs 
 		# Calculate $ElapsedTime
@@ -349,6 +348,7 @@ $Cred = New-Object System.Management.Automation.PSCredential($From,$SecureEmail)
 $ServerName = get-content env:computername
 
 $MSFLogsFolder = Get-Value $configuration "logging" "log_dir" string
+New-Item -ItemType directory -Path $MSFLogsFolder -Force | Out-Null
 $UnifieldTaskLogFile = $MSFLogsFolder + "\" +  [DateTime]::Now.ToString("yyyyMMdd") + "_UnifieldTask.log" 
 $LogInfoDetail = "INFO"
 $LogDebugDetail = "DEBUG"
@@ -360,7 +360,6 @@ $LogWarningDetail = "WARNING"
 # Web Variable
 $CloudDirectory = Get-Value $configuration "cloud" "directory" string
 $UrlDav = Get-Value $configuration "cloud" "path" string
-$SSLCertificate = "80:1e:01:7d:e6:38:be:64:c5:d9:ff:2f:75:4d:66:f6:9c:67:f7:1d"
 $user = Get-Value $configuration "cloud" "user" string
 $Base64 = Get-Value $configuration "cloud" "password_64" string
 try{
