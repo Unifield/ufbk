@@ -24,7 +24,8 @@ directory named ```ufbk-1.1``` in it. This must be extracted, then
 moved to d: and then renamed to ```ufbk```.
 2. Open the config.ini file and configure every configuration 
 variable to match your OC’s requirements in terms of backup. 
-There is an explanation for every configuration variable.
+There is an explanation for every configuration variable. Pay
+close attention to the ones marked "(\*)" as these are required.
 3. Click on “run.bat” to upload a backup to the cloud
 4. If it works, then open create_task.bat to turn on the scheduled 
 task. By default it’s launched at 9pm. You can change that in the 
