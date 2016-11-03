@@ -19,7 +19,9 @@ cloud. This tool is already included in the package.
 
 # Installation
 
-1. Extract the ZIP file to D:\UFbk.
+1. Extract the ZIP file to D:\UFbk. Attention, the zipfile has a
+directory named ```ufbk-1.1``` in it. This must be extracted, then
+moved to d: and then renamed to ```ufbk```.
 2. Open the config.ini file and configure every configuration 
 variable to match your OC’s requirements in terms of backup. 
 There is an explanation for every configuration variable.
