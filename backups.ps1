@@ -159,8 +159,12 @@ function upload_backup {
 	if($BackupZipFileName.IndexOf('-') -ne -1){
 		$BackupZipFileName = $BackupZipFileName.Substring(0, $BackupZipFileName.IndexOf('-'))
 	}
+
 	# UniqueID : The abbreviated name of the day of the week.
-	$UniqueID = Get-Date -format ddd
+	$locale = New-Object System.Globalization.CultureInfo("en-GB")
+	$date = Get-Date
+	$UniqueID = $date.ToString("ddd", $locale)
+
 	# LatestBackupFile name creation : exemple : "OCG_LB_COO-1.zip" - rotation of Backup Name with abbreviated name of the day of the week.
 	$BackupZipFileName =  $BackupZipFileName + "-" + $UniqueID + ".zip"	
 	# Log Info 
